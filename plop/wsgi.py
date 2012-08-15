@@ -13,11 +13,11 @@ class PlopMiddleware(object):
 
     logger = logging.getLogger(__name__)
 
-    def __init__(self, application):
+    def __init__(self, application, percent=25, outpath="/tmp/plop/"):
         self.application = application
         self.hostname = socket.gethostname()
-        self.outpath = "/tmp/plop/"
-        self.percent = 25
+        self.outpath = outpath
+        self.percent = percent
 
     def should_profile(self):
         """Returns true if the current request should be profiled."""
