@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from collections import Counter
-import logging
 import os
 
 from tornado.ioloop import IOLoop
@@ -48,16 +47,15 @@ def profile_to_json(filename):
     assert (abspath + os.path.sep).startswith(root)
     graph = CallGraph.load(abspath)
 
-    total = sum(stack.weights['calls'] for stack in graph.stacks)
     top_stacks = graph.stacks
     #top_stacks = [stack for stack in graph.stacks if stack.weights['calls'] > total*.005]
     filtered_nodes = set()
     for stack in top_stacks:
         filtered_nodes.update(stack.nodes)
-    nodes=[dict(attrs=node.attrs, weights=node.weights, id=node.id)
+    nodes = [dict(attrs=node.attrs, weights=node.weights, id=node.id)
            for node in filtered_nodes]
     nodes = sorted(nodes, key=lambda n: -n['weights']['calls'])
-    index = {node['id']: i for i, node in enumerate(nodes)}
+    index = dict([(node['id'], i) for i, node in enumerate(nodes)])
 
     # High-degree nodes are generally common utility functions, and
     # creating edges from all over the graph tends to obscure more than
@@ -94,7 +92,7 @@ def main():
         ('/data', DataHandler),
         ]
 
-    settings=dict(
+    settings = dict(
         debug=options.debug,
         static_path=os.path.join(os.path.dirname(__file__), 'static'),
         template_path=os.path.join(os.path.dirname(__file__), 'templates'),
