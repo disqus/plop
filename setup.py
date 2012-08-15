@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name="plop",
-    version="0.1.1",
+    version="0.1.1-disqus-1",
     packages=["plop", "plop.test"],
     package_data={
         "plop": [
@@ -13,5 +13,5 @@ setup(
             ],
         },
     author="Ben Darnell",
-    url="https://github.com/bdarnell/plop",
+    url="https://github.com/disqus/plop",
     )
