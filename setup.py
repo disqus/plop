@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name="plop",
-    version="0.1.1-disqus-2",
+    version="0.1.1-disqus-3",
     packages=["plop", "plop.test"],
     package_data={
         "plop": [
