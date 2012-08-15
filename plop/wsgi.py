@@ -21,9 +21,7 @@ class PlopMiddleware(object):
 
     def should_profile(self):
         """Returns true if the current request should be profiled."""
-        if self.percent == 100:
-            return True
-        return random.randint(0, 100) % self.percent == 0
+        return random.randint(0, 100) < self.percent
 
     def __call__(self, environ, start_response):
         if not self.should_profile():
